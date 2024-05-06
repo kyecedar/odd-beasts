@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://bu8yjvmqibbs2"]
+
+[ext_resource type="PackedScene" uid="uid://da2k46nu3s0qc" path="res://scns/player/player.tscn" id="1_wj7b7"]
+[ext_resource type="Texture2D" uid="uid://bh5io6l54nr7e" path="res://assets/textures/grid/Vector/texture_03.svg" id="2_el52g"]
+[ext_resource type="PackedScene" uid="uid://bqtmvst1440di" path="res://scns/camera/camera.tscn" id="3_33bnc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c3gh7"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_xd0yo"]
+sky_material = SubResource("ProceduralSkyMaterial_c3gh7")
+
+[sub_resource type="Environment" id="Environment_rhseo"]
+background_mode = 2
+sky = SubResource("Sky_xd0yo")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b3t2n"]
+albedo_texture = ExtResource("2_el52g")
+uv1_triplanar = true
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ws3lc"]
+
+[node name="Main" type="Node3D"]
+
+[node name="wenv" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rhseo")
+
+[node name="sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("1_wj7b7")]
+camera = NodePath("../Camera")
+
+[node name="Camera" parent="." instance=ExtResource("3_33bnc")]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="Mesh" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+material_override = SubResource("StandardMaterial3D_b3t2n")
+size = Vector3(35, 0.5, 35)
+
+[node name="Collision" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape3D_ws3lc")

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://uxeodl6pkexl"]
+
+[ext_resource type="Shader" path="res://tscns/TestGrass.gdshader" id="1_qfx1y"]
+[ext_resource type="ArrayMesh" uid="uid://cv11xkh1oxaro" path="res://scns/env/foliage/programmer_grass.res" id="2_k6jk0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_42q4w"]
+shader = ExtResource("1_qfx1y")
+shader_parameter/instance_rows = 40.0
+shader_parameter/instance_spacing = 0.1
+shader_parameter/instance_scale_x = 1.0
+shader_parameter/instance_scale_y = 1.0
+shader_parameter/instance_scale_z = 1.0
+shader_parameter/instance_scale_randomize = 1.0
+shader_parameter/instance_pos_randomize = 2.0
+shader_parameter/instance_scale_min = 0.2
+shader_parameter/instance_scale_max = 1.2
+
+[node name="TestGrass" type="Node3D"]
+
+[node name="grass" type="GPUParticles3D" parent="."]
+amount = 100
+explosiveness = 1.0
+process_material = SubResource("ShaderMaterial_42q4w")
+draw_pass_1 = ExtResource("2_k6jk0")

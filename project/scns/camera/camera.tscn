@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqtmvst1440di"]
+
+[ext_resource type="Shader" path="res://shaders/postprocessing/passthrough.gdshader" id="1_l5t4p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7fo8p"]
+render_priority = 0
+shader = ExtResource("1_l5t4p")
+
+[sub_resource type="QuadMesh" id="QuadMesh_dvqrf"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="Camera" type="Camera3D"]
+
+[node name="PostProcessing" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_7fo8p")
+mesh = SubResource("QuadMesh_dvqrf")
